@@ -1,0 +1,107 @@
+#!/bin/bash
+#PBS -A mfb9_b_g_sc_default
+#PBS -N submit_jobs
+#PBS -l nodes=1:ppn=1
+#PBS -l pmem=1gb
+#PBS -l walltime=96:00:00
+
+# Get started
+cd $PBS_O_WORKDIR
+sleep 10
+
+TARGET=3900
+SLEEP=300
+USER_NAME=uut47
+
+# Count the current jobs, pending or running
+get_job_count(){
+  # The grep is to remove the header, there may be a better way.
+  qstat -u $USER_NAME | grep $USER_NAME | wc -l
+}
+
+input_files=(
+1320.yml
+1322.yml
+1324.yml
+1326.yml
+1328.yml
+1330.yml
+1332.yml
+1334.yml
+1336.yml
+1338.yml
+1340.yml
+1342.yml
+1344.yml
+1346.yml
+1348.yml
+1590.yml
+1592.yml
+1594.yml
+1596.yml
+1598.yml
+1600.yml
+1602.yml
+1604.yml
+1606.yml
+1608.yml
+1610.yml
+1612.yml
+1614.yml
+1616.yml
+1618.yml
+1860.yml
+1862.yml
+1864.yml
+1866.yml
+1868.yml
+1870.yml
+1872.yml
+1874.yml
+1876.yml
+1878.yml
+1880.yml
+1882.yml
+1884.yml
+1886.yml
+1888.yml
+2130.yml
+2132.yml
+2134.yml
+2136.yml
+2138.yml
+2140.yml
+2142.yml
+2144.yml
+2146.yml
+2148.yml
+2150.yml
+2152.yml
+2154.yml
+2156.yml
+2158.yml
+)
+
+# Global job counter
+COUNTER=$(get_job_count)
+
+FROM=0
+TO=109
+
+for i in "${!input_files[@]}";do
+        echo ${input_files[${i}]}
+        for NUMBERS in `seq $FROM $TO`; do
+		echo "$NUMBERS - ${input_files[${i}]}"
+		
+		# Wait until the number of job is under the limit, then submit.
+		while [ $COUNTER -ge $TARGET ]; do
+			sleep $SLEEP
+			COUNTER=$(get_job_count)
+		done
+                qsub -v NUMBER_ARG=$NUMBERS,INPUT_FILE=${input_files[${i}]} job_template.pbs
+		let "COUNTER++"
+        done
+        FROM=$((FROM + 1000))
+        TO=$((TO + 1000))
+done
+
