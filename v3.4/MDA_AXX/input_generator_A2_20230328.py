@@ -1,4 +1,5 @@
 import yaml
+import pandas as pd
 import numpy as np
 from math import log
 import copy
@@ -58,6 +59,8 @@ mda_therapy_ids = {
 
 mda_stategy= ['AAB', 'ABA', 'ABB']
 
+params = []
+
 for mda_round in number_MDA_rounds:
     for beta,pfpr_str in pfprs.items():
         for cr in cost_of_resistance_factors:
@@ -81,6 +84,7 @@ for mda_round in number_MDA_rounds:
                                 allele["daily_cost_of_resistance"] = allele["daily_cost_of_resistance"] * cr
 
                         new_data["mean_prob_individual_present_at_mda"] = [mda_coverage + 0.05, mda_coverage - 0.05, mda_coverage + 0.05]
+                        new_data["sd_prob_individual_present_at_mda"] = [0.2,0.2,0.2]
 
                         for index,event in enumerate(data['events']):
                             if event['name'] == 'modify_nested_mft_strategy':
@@ -94,9 +98,10 @@ for mda_round in number_MDA_rounds:
                                     else:
                                         new_data['mda_therapy_id'] = mda_therapy_id
                                         new_data['events'][index]['info'][0]['strategy_id'] = mda_therapy[0]
-
-                        output_filename = 'A2_20230328/ONELOC_40k_%dRMDA_%s_OPPUNIFORM_FLAL_%s_%s_crf_%d_fmda_%.1f.yml'%(
-                                mda_round,pfpr_str,strategy, mda_therapy[1], cr,mda_coverage)
+                        output_filename = 'A2_20230328/%d.yml'%(len(params))
                         output_stream = open(output_filename, 'w')
                         yaml.dump(new_data, output_stream)
                         output_stream.close()
+                        params.append((mda_round,beta,cr,mda_coverage,strategy,mda_therapy[1]))
+params_df = pd.DataFrame(params, columns=['mda_round','beta','cr_factor','mda_coverage','strategy','b_drug'])
+params_df.to_csv('A2_20230328_params.csv', index=True)

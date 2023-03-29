@@ -3,21 +3,21 @@
 # DATE: Sep 16 2015
 # AUTHORS: Tran Dang Nguyen and Maciej F Boni
 #
-# This sample input file was created to get a first-time user up 
+# This sample input file was created to get a first-time user up
 # and running quickly with the simulation.
 #
 # ---------------------------------------------------------------
 
 
-# starting time point of the simulation (in yyyy/m/d format) 
+# starting time point of the simulation (in yyyy/m/d format)
 # which is day 0 in the simulation
 # including the burn-in period which we normally set to 4000# days;
 starting_date: 2008/1/1
 
-# ending time point of the simulation (in yyyy/m/d format) 
+# ending time point of the simulation (in yyyy/m/d format)
 ending_date: 2042/1/1
 
-# the day at which the simulation's reporting functionality begins collecting data for 
+# the day at which the simulation's reporting functionality begins collecting data for
 # EIR, # of clinical episodes, # death , # of treatment, #TF by location,...
 # for monthly data display
 start_collect_data_day: 0
@@ -27,7 +27,7 @@ start_of_comparison_period: 2022/1/1
 
 # number of days to keep track total number of parasites in population
 # in other words, the simulation stores 11 days of mosquitoes-biting-on-humans history
-# if an individual is infected today, the infection type and probability will be based 
+# if an individual is infected today, the infection type and probability will be based
 # on the biting that took place 11 days ago
 number_of_tracking_days: 11
 
@@ -89,7 +89,7 @@ spatial_model:
     alpha: 0.22268982
     beta: 0.14319618
     gamma: 0.83741484
-    
+
 
 
 # below value indicates 37.25 births per 1000 individuals per year
@@ -117,15 +117,15 @@ parasite_density_level:
   log_parasite_density_detectable:   1.000    # corresponds to 10 parasites per microliter of blood
   log_parasite_density_pyrogenic:    3.398    # corresponds to 2500 parasites per microliter of blood
 
-  
-immune_system_information:  
+
+immune_system_information:
   #rate at which antimalarial immune function increases when a host is parasitaemic
   b1: 0.00125
-  
+
   #rate at which antimalarial immune function decreases when a host is parasitaemic
   b2: 0.0025
-  
-  # durations of infection of naive and fully-immune hosts. 
+
+  # durations of infection of naive and fully-immune hosts.
   # these parameters are used to calculate max and min killing rate by immune system
   duration_for_naive: 300
   duration_for_fully_immune: 60
@@ -133,21 +133,21 @@ immune_system_information:
   # initial conditions for the immune function of the population at time zero
   mean_initial_condition: 0.1
   sd_initial_condition: 0.1
-  
+
   # (per year) age-dependent faster acquisition of immunity from age 1 to age 10
-  immune_inflation_rate: 0.01   
+  immune_inflation_rate: 0.01
 
   # mix and max probabilities of experiencing symptoms as a result of a new infection
   # the actual probability will depend on the host's immunity
   min_clinical_probability: 0.05
   max_clinical_probability: 0.99
 
-  # slope of sigmoidal prob-v-immunity function (parameter z in supplement of 2015 LGH paper) 
+  # slope of sigmoidal prob-v-immunity function (parameter z in supplement of 2015 LGH paper)
   immune_effect_on_progression_to_clinical: 4
-  
+
   # age at which immune function is mature
   age_mature_immunity: 10
-  
+
   # parameter kappa in supplement of 2015 LGH paper
   factor_effect_age_mature_immunity : 1
 
@@ -182,7 +182,7 @@ genotype_info:
           allele_name: "K76"
           short_name: "K"
           # this is the list of "mutant values" you can mutate up to (there is no real meaning of up; down mutations are equally likely)
-          can_mutate_to: [1]                 
+          can_mutate_to: [1]
           mutation_level: 0
           daily_cost_of_resistance: 0.0
         - value: 1
@@ -205,7 +205,7 @@ genotype_info:
           allele_name: "86Y Y184 one copy of pfmdr1"
           short_name: "YY--"
           can_mutate_to: [3,0,5]
-          mutation_level: 1     
+          mutation_level: 1
           daily_cost_of_resistance: 0.0005
         - value: 2
           allele_name: "N86 184F one copy of pfmdr1"
@@ -217,7 +217,7 @@ genotype_info:
           allele_name: "86Y 184F one copy of pfmdr1"
           short_name: "YF--"
           can_mutate_to: [1,2,7]
-          mutation_level: 2 
+          mutation_level: 2
           daily_cost_of_resistance: 0.00099975
         - value: 4
           allele_name: "N86 Y184 2 copies of pfmdr1"
@@ -229,7 +229,7 @@ genotype_info:
           allele_name: "86Y Y184 2 copies of pfmdr1"
           short_name: "YYYY"
           can_mutate_to: [1]
-          mutation_level: 2     
+          mutation_level: 2
           daily_cost_of_resistance: 0.0055
         - value: 6
           allele_name: "N86 184F 2 copies of pfmdr1"
@@ -286,7 +286,7 @@ genotype_info:
           allele_name: "mutant"
           short_name: "X"
           can_mutate_to: [0]
-          mutation_level: 1           
+          mutation_level: 1
           daily_cost_of_resistance: 0.0005
 
 
@@ -326,21 +326,21 @@ initial_parasite_info:
 
 # drug information below
 #
-# maximum_parasite_killing_rate: 
-#       e.g. 0.999 means the drug can kill 99.9% of parasites in 1 day if a person has 
+# maximum_parasite_killing_rate:
+#       e.g. 0.999 means the drug can kill 99.9% of parasites in 1 day if a person has
 #       the highest possible drug concentration
 #
-# n: 
+# n:
 #       the slope of the linear portion of the conentration-effect curve
 #
-# EC50: 
+# EC50:
 #       the drug concentration which produces 50% of the parasite killing achieved at maximum-concentration
 #       ( the expected starting concentration is 1.0 )
 #
-# age_specific_drug_concentration_sd: 
+# age_specific_drug_concentration_sd:
 #       the actual drug concentration, per individual, will be drawn from a normal distribution with mean=1 and this sd.
 #
-# k: 
+# k:
 #       parameter that describes the change in the mutation probability when drug levels are intermediate
 #       - set k=0.5 for a simple linear model where mutation probablity decreases linearly with drug concentration
 #       - set k=2 or k=4 for a piecewise-linear model where mutation probability increases from high concentrations
@@ -403,7 +403,7 @@ drug_db:
        16... : 1.05
        #TYFYF
        17... : 0.95
-  2: 
+  2:
     name: "amodiaquine"
     half_life: 9.0
     maximum_parasite_killing_rate: 0.95
@@ -446,7 +446,7 @@ drug_db:
        16... : 0.65
        #TYFYF
        17... : 0.82
-  3: 
+  3:
     name: "piperaquine"
     half_life: 28.0
     maximum_parasite_killing_rate: 0.9
@@ -461,7 +461,7 @@ drug_db:
        ...0. : 0.58
        ...1. : 1.4
   #MQ
-  4: 
+  4:
     name: "Mefloquine"
     half_life: 21.0
     maximum_parasite_killing_rate: 0.9
@@ -480,7 +480,7 @@ drug_db:
        .5... : 1.1
        .6... : 1.1
        .7... : 1.1
-  5: 
+  5:
     name: "SP"
     half_life: 6.5
     maximum_parasite_killing_rate: 0.9
@@ -574,12 +574,12 @@ drug_db:
     EC50:
       ...0. : 0.75
       ...1. : 1.2
-         
+
 lumefantrine_drug_id: 2
 artemisinin_drug_id: 0
-  
+
 # therapy info
-# the drug_ids that make up the therapy, and the number of days that the therapy is prescribed for 
+# the drug_ids that make up the therapy, and the number of days that the therapy is prescribed for
 # testing day tells you the follow-up point at which it is determined if treatment failed or not
 tf_testing_day: 28
 
@@ -648,7 +648,7 @@ therapy_db:
   15:
     drug_id: [8,9]
     dosing_days: [3]
-    
+
 # drug-deployment strategy - simply uncomment below to turn on a particular strategy
 strategy_db:
     0:
@@ -685,9 +685,9 @@ strategy_db:
         peak_after: 12418
 
 initial_strategy_id: 6
-    
 
-# this number use to detemine whether a therapy is "useful" or not and it is used to calculate 
+
+# this number use to detemine whether a therapy is "useful" or not and it is used to calculate
 # the useful therapeutic duration of a therapy
 tf_rate: 0.1
 
@@ -708,7 +708,7 @@ p_compliance: 1
 
 # this functionality works. It is used when p_compliance (above) is less than 1.
 # It was not used in any analyses for the 2015 LGH paper where p_compliance is always 1.
-# this guarantees that the minimum number of dosing days for a poorly-complying 
+# this guarantees that the minimum number of dosing days for a poorly-complying
 # patient is still 1
 min_dosing_days: 1
 
@@ -719,7 +719,7 @@ relative_bitting_info:
   number_of_biting_levels: 100
   biting_level_distribution:
   #  distribution: Exponential
-    distribution: Gamma  
+    distribution: Gamma
     Exponential:
       scale: 0.17
     Gamma:
@@ -754,7 +754,7 @@ update_frequency: 7
 #report to GUI and console every 30 days
 report_frequency: 30
 
-# if an infected and asymptomatic host is bitten and infected by a new 
+# if an infected and asymptomatic host is bitten and infected by a new
 # parasite clone, this setting allows the new infection to cause symptoms
 allow_new_coinfection_to_cause_symtoms: true
 
@@ -764,7 +764,7 @@ external_population_circulation_information:
   number_of_moving_levels: 100
   moving_level_distribution:
   #  distribution: Exponential
-    distribution: Gamma  
+    distribution: Gamma
     Exponential:
       scale: 0.17
     Gamma:
@@ -774,28 +774,28 @@ external_population_circulation_information:
   length_of_stay:
     # drawn from gamma distribution?
     mean: 5
-    sd: 10    
+    sd: 10
   daily_EIR: [0.01,0.01,0.01,0.01,0.1]
   seasonal_EIR:
     a: [1]
     phi: [180]
     period: 360
     min_value: 0.1
-  
+
 # free recombination among the drug resistance loci
 using_free_recombination: true
 #using_free_recombination: false
 
 # the current treatment failure rate as observed in the population is not really
 # today's treatment failure rate, as these data are never assembled that quickly in
-# real life; rather, it is the average treatment failure rate observed over the 
+# real life; rather, it is the average treatment failure rate observed over the
 # past 60 days
 tf_window_size: 60
 
 # special function to make the mean biting rate (across hosts) depend on age
 using_age_dependent_bitting_level: false
 
-# special function which makes the probability of an infection (resulting 
+# special function which makes the probability of an infection (resulting
 # from an infectious mosquito bite) age-dependent
 using_variable_probability_infectious_bites_cause_infection: false
 
@@ -872,7 +872,7 @@ events:
   - name: single_round_MDA
     info:
       - day: 2022/1/1
-        fraction_population_targeted: [1.0] 
+        fraction_population_targeted: [1.0]
         days_to_complete_all_treatments: 14
       - day: 2022/2/5
         fraction_population_targeted: [1.0]
@@ -888,7 +888,7 @@ events:
     info:
       - day: 2022/6/1
         strategy_id: 3
-        
+
 mda_therapy_id : 9
 
 age_bracket_prob_individual_present_at_mda: [10, 40]
