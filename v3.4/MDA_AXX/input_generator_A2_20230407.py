@@ -88,7 +88,7 @@ for mda_round in number_MDA_rounds:
                                 if event['name'] == 'single_round_MDA':
                                     new_data['events'][index]['info'] = data['events'][index]['info'][0:mda_round]
                                     for i in range(mda_round):
-                                        new_data['events'][index]['info'][i]['fraction_population_targeted'] = mda_coverage
+                                        new_data['events'][index]['info'][i]['fraction_population_targeted'] = np.full(number_of_locations, mda_coverage).tolist()
 
                             for index,event in enumerate(data['events']):
                                 if event['name'] == 'change_treatment_coverage':

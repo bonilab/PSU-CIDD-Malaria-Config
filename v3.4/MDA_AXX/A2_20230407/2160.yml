@@ -507,10 +507,12 @@ events:
 - info:
   - day: 2022/1/1
     days_to_complete_all_treatments: 14
-    fraction_population_targeted: 0.6
+    fraction_population_targeted:
+    - 0.6
   - day: 2022/2/5
     days_to_complete_all_treatments: 14
-    fraction_population_targeted: 0.6
+    fraction_population_targeted:
+    - 0.6
   name: single_round_MDA
 - info:
   - day: 2022/6/1
